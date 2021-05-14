@@ -6,6 +6,7 @@ const schema = mongoose.Schema({
   name: String,
   description: String,
   members: [mongoose.Types.ObjectId],
+  colors: [{ name: String, code: String }],
 });
 
 module.exports = mongoose.model('project', schema);
