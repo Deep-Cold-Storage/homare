@@ -59,6 +59,34 @@ class ProjectService {
 
     return project.members;
   }
+
+  async getPalettes(projectId) {
+    const project = projects.find({ _Id: projectId });
+
+    return project.palettes;
+  }
+
+  async createPalette(projectId, name) {
+    const project = projects.find({ _Id: projectId });
+
+    project.palettes.push({ name: name });
+
+    return project.palettes;
+  }
+
+  async updatePalette(projectId, paletteId, name, colors) {
+    const project = await projects.updateOne({ _id: projectId, 'palettes._id': paletteId }, { $set: { 'roles.$.name': name, 'roles.$.colors': colors } });
+
+    return project.palettes;
+  }
+
+  async deletePalette(paletteId) {
+    const project = projects.find({ _Id: projectId });
+
+    project.palettes.filter((x) => String(x) !== String(paletteId));
+
+    return project.palettes;
+  }
 }
 
 module.exports = new ProjectService();

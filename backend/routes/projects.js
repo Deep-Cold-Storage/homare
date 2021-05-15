@@ -65,6 +65,7 @@ async function routes(router) {
 
   router.register(require('./projects/owner'));
   router.register(require('./projects/members'));
+  router.register(require('./projects/palettes'));
 }
 
 module.exports = routes;
