@@ -3,58 +3,40 @@ const ProjectService = require('../../services/ProjectService');
 async function routes(router) {
   router.register(require('../../hooks/ownerHook'));
 
-  router.get(
-    '/:projectId/members',
+  router.patch(
+    '/:projectId',
     {
       schema: {
-        summary: 'Get project members',
-        tags: ['Projects - Members'],
+        summary: 'Update project.',
+        tags: ['Projects'],
         security: [{ BearerAuth: [] }],
       },
     },
     async (req, res) => {
       const { projectId } = req.params;
+      const { name, description } = req.body;
 
-      const members = await ProjectService.getMembers(projectId);
+      const project = await ProjectService.update(projectId, name, description);
 
-      return res.send(members);
-    }
-  );
-
-  router.post(
-    '/:projectId/members',
-    {
-      schema: {
-        summary: 'Invite projects member.',
-        tags: ['Projects - Members'],
-        security: [{ BearerAuth: [] }],
-      },
-    },
-    async (req, res) => {
-      const { projectId } = req.params;
-      const { email } = req.body;
-
-      const members = await ProjectService.createMember(projectId, email);
-
-      return res.send(members);
+      return res.send(project);
     }
   );
 
   router.delete(
-    '/:projectId/members/:memberId',
+    '/:projectId',
     {
       schema: {
-        summary: 'Remove projects member.',
-        tags: ['Projects - Members'],
+        summary: 'Remove project.',
+        tags: ['Projects'],
         security: [{ BearerAuth: [] }],
       },
     },
     async (req, res) => {
-      const { projectId, memberId } = req.params;
+      const { projectId } = req.params;
 
-      const members = await ProjectService.removeMember(projectId, memberId);
+      await ProjectService.delete(projectId);
 
-      return res.send(members);
+      return res.code(204).send('');
     }
   );
 }

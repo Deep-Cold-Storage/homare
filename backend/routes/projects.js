@@ -64,6 +64,7 @@ async function routes(router) {
   );
 
   router.register(require('./projects/owner'));
+  router.register(require('./projects/members'));
 }
 
 module.exports = routes;
