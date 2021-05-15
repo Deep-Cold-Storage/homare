@@ -8,6 +8,16 @@ const routes = [
     name: 'Home',
     component: Home,
   },
+  {
+    path: '/projects',
+    name: 'Projects',
+    component: () => import(/* webpackChunkName: "projects" */ '../views/Projects.vue'),
+  },
+  {
+    path: '/colors',
+    name: 'Colors',
+    component: () => import(/* webpackChunkName: "colors" */ '../views/Colors.vue'),
+  },
 ];
 
 const router = createRouter({
