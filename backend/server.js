@@ -31,10 +31,12 @@ app.register(require('fastify-swagger'), {
   },
 });
 
+const colors = require('./routes/colors');
 const projects = require('./routes/projects');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
 
+app.register(colors, { prefix: '/colors' });
 app.register(projects, { prefix: '/projects' });
 app.register(users, { prefix: '/users' });
 app.register(auth, { prefix: '/auth' });
