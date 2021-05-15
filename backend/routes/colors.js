@@ -10,9 +10,13 @@ async function routes(router) {
       },
     },
     async (req, res) => {
-      const colors = await ColorService.get();
+      const { success, colors } = await ColorService.get();
 
-      return res.send(colors);
+      if (success) {
+        return res.send(colors);
+      }
+
+      return res.code(503).send({ msg: 'Colormind API is currently unavailable. Try again later.' });
     }
   );
 }
