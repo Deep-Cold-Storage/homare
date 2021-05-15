@@ -12,8 +12,6 @@ async function routes(router) {
     async (req, res) => {
       const colors = await ColorService.get();
 
-      console.log(colors);
-
       return res.send(colors);
     }
   );

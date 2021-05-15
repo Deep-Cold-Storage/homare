@@ -1,4 +1,5 @@
 const projects = require('../models/projects');
+const users = require('../models/users');
 
 class ProjectService {
   async getUserProjects(userId) {
@@ -12,6 +13,35 @@ class ProjectService {
     project.save();
 
     return project;
+  }
+
+  async getMembers(projectId) {
+    const project = projects.find({ _Id: projectId });
+
+    return project.members;
+  }
+
+  async createMember(projectId, email) {
+    let user = await users.findOne({ email: email });
+    const project = projects.find({ _Id: projectId });
+
+    if (!user) {
+      user = new users({ email: email });
+
+      user.save();
+    }
+
+    project.members.push(user._Id);
+
+    return project.members;
+  }
+
+  async removeMember(projectId, memberId) {
+    const project = projects.find({ _Id: projectId });
+
+    project.members = project.members.filter((x) => String(x) !== String(memberId));
+
+    return project.members;
   }
 }
 
