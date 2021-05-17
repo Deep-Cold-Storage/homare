@@ -19,9 +19,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "projects" */ '../views/Projects.vue'),
   },
   {
-    path: '/colors',
-    name: 'Colors',
-    component: () => import(/* webpackChunkName: "colors" */ '../views/Colors.vue'),
+    path: '/generator',
+    name: 'Generator',
+    component: () => import(/* webpackChunkName: "generator" */ '../views/Generator.vue'),
   },
 ];
 
