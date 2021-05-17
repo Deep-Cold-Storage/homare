@@ -3,13 +3,14 @@ const users = require('../models/users');
 
 class ProjectService {
   async getUserProjects(userId) {
-    let projects = { owned: await projects.find({ _userId: userId }), shared: await projects.find({ 'members._userId': userId }) };
+    let project = { owned: await projects.find({ _userId: userId }), shared: await projects.find({ 'members._userId': userId }) };
 
-    return projects;
+    return project;
   }
 
   async create(userId, name, description) {
     let project = new projects({ name: name, description: description, _userId: userId });
+
     project.save();
 
     return project;

@@ -10,19 +10,6 @@ async function routes(router) {
         summary: "Get all user's projects.",
         tags: ['Projects'],
         security: [{ BearerAuth: [] }],
-
-        response: {
-          200: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                name: { type: 'string' },
-                description: { type: 'string' },
-              },
-            },
-          },
-        },
       },
     },
     async (req, res) => {
@@ -40,15 +27,20 @@ async function routes(router) {
         tags: ['Projects'],
         security: [{ BearerAuth: [] }],
 
+        body: {
+          type: 'object',
+          properties: {
+            name: { type: 'string' },
+            description: { type: 'string' },
+          },
+        },
+
         response: {
           200: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                name: { type: 'string' },
-                description: { type: 'string' },
-              },
+            type: 'object',
+            properties: {
+              name: { type: 'string' },
+              description: { type: 'string' },
             },
           },
         },
