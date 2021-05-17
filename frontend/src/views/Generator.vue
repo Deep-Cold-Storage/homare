@@ -54,16 +54,21 @@
       },
 
       getColors() {
-        this.axios.get('/api/colors').then((payload) => {
-          this.colors = [];
+        this.axios
+          .get('/api/colors')
+          .then((payload) => {
+            this.colors = [];
 
-          let colors = [];
-          for (let color of payload.data) {
-            colors.push({ backgroundColor: Color.rgb(color).hex() });
-          }
+            let colors = [];
+            for (let color of payload.data) {
+              colors.push({ backgroundColor: Color.rgb(color).hex() });
+            }
 
-          this.colors = colors;
-        });
+            this.colors = colors;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       },
     },
     mounted() {
