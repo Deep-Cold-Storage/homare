@@ -2,7 +2,7 @@
   <div class="flex flex-col items-center justify-between w-full h-full">
     <div class="flex flex-row justify-end w-full px-12"
       ><button class="px-8 py-3 my-6 text-sm font-medium text-white rounded-xl lg:max-w-max bg-primary focus:outline-none" @click="getColors()"
-        ><svg class="inline w-6 h-6 lg:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        ><svg class="hidden w-6 h-6 lg:inline lg:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -14,23 +14,24 @@
       >
 
       <button class="px-8 py-3 mx-3 my-6 text-sm font-medium text-white rounded-xl lg:max-w-max bg-primary focus:outline-none"
-        ><svg class="inline w-6 h-6 lg:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        ><svg class="hidden w-6 h-6 lg:inline lg:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
         Save</button
       >
     </div>
 
-    <div class="flex flex-col flex-grow w-full h-48 lg:flex-row">
+    <div class="flex flex-col flex-grow w-full h-60 lg:h-48 lg:flex-row">
       <div
         class="flex flex-col items-center justify-end w-full h-full cursor-pointer"
-        v-for="item in processedColors"
-        :key="item._id"
+        v-for="(item, index) in colors"
+        :key="index"
         v-bind:style="item"
         @click="copyColor(item.backgroundColor)"
       >
         <section class="flex flex-row p-3 m-3 bg-white rounded shadow-lg lg:p-5 lg:m-5 lg:w-auto lg:rounded-xl">
           <h1 class="text-base font-medium"> {{ item.backgroundColor }}</h1>
+          <input v-model="colors[index].backgroundColor" class="ml-3" type="color" />
         </section>
       </div>
     </div>
@@ -45,7 +46,6 @@
     data() {
       return {
         colors: [],
-        processedColors: [],
       };
     },
     methods: {
@@ -56,18 +56,11 @@
       getColors() {
         this.axios.get('/api/colors').then((payload) => {
           this.colors = [];
+
           let colors = [];
-
-          this.processedColors = [];
-          let processedColors = [];
-
           for (let color of payload.data) {
-            colors.push(Color.rgb(color));
-
-            processedColors.push({ backgroundColor: Color.rgb(color).hex() });
+            colors.push({ backgroundColor: Color.rgb(color).hex() });
           }
-
-          this.processedColors = processedColors;
 
           this.colors = colors;
         });
