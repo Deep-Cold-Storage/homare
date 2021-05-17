@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-center justify-center w-full h-full">
-    <div class="container flex flex-col items-center p-5 lg:flex-row lg:p-32">
-      <div class="flex flex-col m-8 lg:flex-grow">
+    <div class="container flex flex-col items-center p-1 lg:flex-row lg:p-32">
+      <div class="flex flex-col m-5 lg:flex-grow">
         <h1 class="mb-6 text-2xl font-bold tracking-tight font-heading lg:text-6xl text-gray">The simplest way to manage colors.</h1>
         <p class="mb-6 text-gray-light ">Create and manage color palettes between projects.</p>
 
