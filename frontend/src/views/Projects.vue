@@ -3,31 +3,7 @@
     <TopNavigation />
 
     <div class="flex flex-row w-full h-full py-4">
-      <section class="hidden w-full max-w-xs p-5 lg:block ">
-        <!-- Owned Projects -->
-        <p class="text-xs text-gray-light">Owned Projects</p>
-        <button class="block px-8 py-3 my-6 text-sm font-medium text-center text-white rounded-xl lg:max-w-max bg-primary focus:outline-none">Create Project</button>
-
-        <div
-          class="p-3 my-3 bg-white rounded shadow-sm cursor-pointer lg:p-5 lg:w-auto lg:rounded-xl"
-          v-for="(item, index) in projects.owned"
-          :key="index"
-          @click="activeProject = item"
-        >
-          <h1 class="mb-2 text-sm font-medium font-heading ">{{ item.name }}</h1>
-          <p class="text-xs text-gray-light">{{ item.description }}</p>
-        </div>
-
-        <!-- Shared Projects -->
-        <template v-if="projects.shared.length">
-          <p class="text-xs text-gray-light">Shared with You</p>
-
-          <div class="p-3 my-3 bg-white rounded shadow-sm cursor-pointer lg:p-5 lg:w-auto lg:rounded-xl" v-for="(item, index) in projects.shared" :key="index">
-            <h1 class="mb-2 text-sm font-medium font-heading ">{{ item.name }}</h1>
-            <p class="text-xs text-gray-light">{{ item.description }}</p>
-          </div>
-        </template>
-      </section>
+      <SideNavigation v-bind:projects="projects" v-on:setActive="setActive" />
 
       <section class="flex flex-col w-full p-5">
         <div class="flex flex-col lg:flex-row lg:justify-between">
@@ -39,9 +15,9 @@
 
           <!-- Project Menu -->
           <div class="flex flex-row justify-center mt-3 lg:mt-0">
-            <p class="m-3 text-sm text-gray-light">Edit</p>
-            <p class="m-3 text-sm text-gray-light">Share (2 Members)</p>
-            <p class="m-3 text-sm text-gray-light">Delete</p>
+            <p class="m-3 text-sm cursor-pointer text-gray-light ">Edit</p>
+            <p class="m-3 text-sm cursor-pointer text-gray-light">Share</p>
+            <p class="m-3 text-sm cursor-pointer text-gray-light" @click="deleteProject()">Delete</p>
           </div>
         </div>
 
@@ -70,11 +46,13 @@
 
 <script>
   import TopNavigation from '@/components/TopNavigation.vue';
+  import SideNavigation from '@/components/SideNavigation.vue';
 
   export default {
     name: 'Projects',
     components: {
       TopNavigation,
+      SideNavigation,
     },
 
     data() {
@@ -95,6 +73,21 @@
           .catch((err) => {
             console.log(err);
           });
+      },
+
+      deleteProject() {
+        this.axios
+          .delete('/api/projects/' + this.activeProject._id)
+          .then(() => {
+            this.getProjects();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      },
+
+      setActive(item) {
+        this.activeProject = item;
       },
     },
     mounted() {
