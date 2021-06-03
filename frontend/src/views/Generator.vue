@@ -3,25 +3,12 @@
     <TopNavigation />
 
     <div class="flex flex-col items-center justify-between flex-grow w-full h-full">
-      <div class="absolute flex flex-row justify-end w-full px-12"
-        ><button class="px-8 py-3 my-6 text-sm font-medium text-white rounded-xl lg:max-w-max bg-primary focus:outline-none" @click="getColors()"
-          ><svg class="hidden w-6 h-6 lg:inline lg:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.6"
-              d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
-            />
-          </svg>
-          Generate</button
-        >
+      <div class="absolute flex flex-row justify-end w-full px-12">
+        <div class="h-aut">
+          <button class="px-8 py-3 my-6 text-sm text-white rounded-lg shadow-md lg:max-w-max bg-primary focus:outline-none" @click="getColors()"> Generate</button>
 
-        <button class="px-8 py-3 mx-3 my-6 text-sm font-medium text-white rounded-xl lg:max-w-max bg-primary focus:outline-none"
-          ><svg class="hidden w-6 h-6 lg:inline lg:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-          Save</button
-        >
+          <button class="px-8 py-3 mx-3 my-6 text-sm text-white rounded-lg shadow-md lg:max-w-max bg-primary focus:outline-none" @click="saveColors()"> Save</button>
+        </div>
       </div>
 
       <div class="flex flex-col flex-grow w-full min-h-full lg:h-48 lg:flex-row">
@@ -32,9 +19,9 @@
           v-bind:style="item"
           @click="copyColor(item.backgroundColor)"
         >
-          <section class="flex flex-row p-3 m-3 bg-white rounded shadow-lg lg:p-5 lg:m-5 lg:w-auto lg:rounded-xl">
-            <h1 class="text-base font-medium"> {{ item.backgroundColor }}</h1>
-            <input v-model="colors[index].backgroundColor" class="ml-3" type="color" />
+          <section class="flex flex-row items-center p-3 m-3 bg-white rounded shadow-lg lg:p-3 lg:m-5 lg:w-auto">
+            <h1 class="text-sm font-medium text-gray"> {{ item.backgroundColor }}</h1>
+            <input v-model="colors[index].backgroundColor" class="w-10 h-10 ml-5" type="color" />
           </section>
         </div>
       </div>
@@ -78,6 +65,10 @@
           .catch((err) => {
             console.log(err);
           });
+      },
+
+      saveColors() {
+        return;
       },
     },
     mounted() {
