@@ -50,6 +50,7 @@
           this.axios
             .patch('/api/projects/' + this.$route.params.projectID + '/palettes/' + this.pallete._id, {
               name: this.pallete.name,
+              colors: this.pallete.colors,
             })
             .then(() => {
               this.$router.go(-1);

@@ -117,7 +117,9 @@
           .then((payload) => {
             this.projects = payload.data;
 
-            this.activeProject = this.projects.owned[0];
+            if (!this.activeProject) {
+              this.activeProject = this.projects.owned[0];
+            }
           })
           .catch((err) => {
             console.log(err);
