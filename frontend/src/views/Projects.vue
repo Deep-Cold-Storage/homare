@@ -15,7 +15,7 @@
 
           <!-- Project Menu -->
           <div class="flex flex-row justify-center mt-3 lg:mt-0">
-            <p class="m-3 text-sm cursor-pointer text-gray-light ">Edit</p>
+            <p class="m-3 text-sm cursor-pointer text-gray-light " @click="editProject()">Edit</p>
             <p class="m-3 text-sm cursor-pointer text-gray-light">Share</p>
             <p class="m-3 text-sm cursor-pointer text-gray-light" @click="deleteProject()">Delete</p>
           </div>
@@ -84,6 +84,10 @@
           .catch((err) => {
             console.log(err);
           });
+      },
+
+      editProject() {
+        this.$router.push('/projects/' + this.activeProject._id);
       },
 
       setActive(item) {

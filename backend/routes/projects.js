@@ -19,6 +19,24 @@ async function routes(router) {
     }
   );
 
+  router.get(
+    '/:projectId',
+    {
+      schema: {
+        summary: 'Get by ID',
+        tags: ['Projects'],
+        security: [{ BearerAuth: [] }],
+      },
+    },
+    async (req, res) => {
+      const { projectId } = req.params;
+
+      const project = await ProjectService.getUserProject(req.userId, projectId);
+
+      return res.send(project);
+    }
+  );
+
   router.post(
     '/',
     {

@@ -33,7 +33,7 @@
           class="px-8 py-3 mx-5 my-5 text-sm text-white rounded lg:my-0 bg-primary disabled:bg-gray disabled:text-gray-light focus:outline-none"
           @click="createProject()"
           :disabled="!project.name.length"
-          >Create Project</button
+          >Create / Update Project</button
         >
       </div>
     </section>
@@ -48,21 +48,54 @@
         project: { name: '', description: '' },
       };
     },
+    props: {
+      editMode: Boolean,
+    },
+
     methods: {
       createProject() {
         if (!this.project.name) {
           return;
         }
 
+        if (this.editMode) {
+          this.axios
+            .patch('/api/projects/' + this.project._id, {
+              name: this.project.name,
+              description: this.project.description,
+            })
+            .then(() => {
+              this.$router.go(-1);
+            });
+        }
+
+        if (!this.editMode) {
+          this.axios
+            .post('/api/projects', {
+              name: this.project.name,
+              description: this.project.description,
+            })
+            .then(() => {
+              this.$router.go(-1);
+            });
+        }
+      },
+
+      getProject(id) {
         this.axios
-          .post('/api/projects', {
-            name: this.project.name,
-            description: this.project.description,
+          .get('/api/projects/' + id)
+          .then((payload) => {
+            this.project = payload.data;
           })
-          .then(() => {
-            this.$router.go(-1);
+          .catch((err) => {
+            console.log(err);
           });
       },
+    },
+    mounted() {
+      if (this.editMode) {
+        this.getProject(this.$route.params.projectID);
+      }
     },
   };
 </script>

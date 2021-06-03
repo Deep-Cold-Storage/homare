@@ -8,6 +8,12 @@ class ProjectService {
     return project;
   }
 
+  async getUserProject(userId, projectId) {
+    let project = await projects.findOne({ _userId: userId, _id: projectId });
+
+    return project;
+  }
+
   async create(userId, name, description) {
     let project = new projects({ name: name, description: description, _userId: userId });
 
@@ -17,7 +23,7 @@ class ProjectService {
   }
 
   async update(projectId, name, description) {
-    let project = await projects.find({ _id: projectId });
+    let project = await projects.findOne({ _id: projectId });
     project.name = name;
     project.description = description;
 
