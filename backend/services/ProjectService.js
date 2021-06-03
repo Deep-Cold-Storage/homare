@@ -39,14 +39,14 @@ class ProjectService {
   }
 
   async getMembers(projectId) {
-    const project = projects.find({ _Id: projectId });
+    const project = await projects.find({ _id: projectId });
 
     return project.members;
   }
 
   async createMember(projectId, email) {
     let user = await users.findOne({ email: email });
-    const project = projects.find({ _Id: projectId });
+    const project = projects.find({ _id: projectId });
 
     if (!user) {
       user = new users({ email: email });
@@ -54,13 +54,13 @@ class ProjectService {
       user.save();
     }
 
-    project.members.push(user._Id);
+    project.members.push(user._id);
 
     return project.members;
   }
 
   async removeMember(projectId, memberId) {
-    const project = projects.find({ _Id: projectId });
+    const project = awaitprojects.find({ _id: projectId });
 
     project.members = project.members.filter((x) => String(x) !== String(memberId));
 
@@ -68,29 +68,33 @@ class ProjectService {
   }
 
   async getPalettes(projectId) {
-    const project = projects.find({ _Id: projectId });
+    const project = await projects.findOne({ _id: projectId });
 
     return project.palettes;
   }
 
   async createPalette(projectId, name) {
-    const project = projects.find({ _Id: projectId });
+    const project = await projects.findOne({ _id: projectId });
 
     project.palettes.push({ name: name });
+
+    project.save();
 
     return project.palettes;
   }
 
   async updatePalette(projectId, paletteId, name, colors) {
-    const project = await projects.updateOne({ _id: projectId, 'palettes._id': paletteId }, { $set: { 'roles.$.name': name, 'roles.$.colors': colors } });
+    const project = await projects.updateOne({ _id: projectId, 'palettes._id': paletteId }, { $set: { 'palettes.$.name': name, 'palettes.$.colors': colors } });
 
     return project.palettes;
   }
 
-  async deletePalette(paletteId) {
-    const project = projects.find({ _Id: projectId });
+  async deletePalette(projectId, paletteId) {
+    const project = await projects.findOne({ _id: projectId });
 
-    project.palettes.filter((x) => String(x) !== String(paletteId));
+    project.palettes = project.palettes.filter((x) => String(x._id) !== String(paletteId));
+
+    project.save();
 
     return project.palettes;
   }

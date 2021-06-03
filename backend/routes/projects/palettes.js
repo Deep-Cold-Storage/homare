@@ -34,7 +34,11 @@ async function routes(router) {
       const { projectId } = req.params;
       const { name } = req.body;
 
+      console.log(projectId);
+
       const palettes = await ProjectService.createPalette(projectId, name);
+
+      console.log(palettes);
 
       return res.send(palettes);
     }
@@ -53,7 +57,7 @@ async function routes(router) {
       const { projectId, paletteId } = req.params;
       const { name, colors } = req.body;
 
-      const palettes = await ProjectService.updatePallete(projectId, paletteId, name, colors);
+      const palettes = await ProjectService.updatePalette(projectId, paletteId, name, colors);
 
       return res.send(palettes);
     }
@@ -69,9 +73,9 @@ async function routes(router) {
       },
     },
     async (req, res) => {
-      const { paletteId } = req.params;
+      const { projectId, paletteId } = req.params;
 
-      const palettes = await ProjectService.deletePalettes(paletteId);
+      const palettes = await ProjectService.deletePalette(projectId, paletteId);
 
       return res.send(palettes);
     }

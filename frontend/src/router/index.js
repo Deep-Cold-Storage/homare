@@ -29,6 +29,18 @@ const routes = [
     props: { editMode: true },
     component: () => import(/* webpackChunkName: "projects" */ '../views/CreateProject.vue'),
   },
+
+  {
+    path: '/projects/:projectID/palletes/create',
+    name: 'CreatePallete',
+    component: () => import(/* webpackChunkName: "projects" */ '../views/CreatePallete.vue'),
+  },
+  {
+    path: '/projects/:projectID/palletes/:palleteID',
+    name: 'EditPallete',
+    props: { editMode: true },
+    component: () => import(/* webpackChunkName: "projects" */ '../views/CreatePallete.vue'),
+  },
   {
     path: '/generator',
     name: 'Generator',
