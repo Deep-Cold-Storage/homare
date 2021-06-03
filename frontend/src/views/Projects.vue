@@ -24,12 +24,13 @@
 
         <section>
           <!-- Palette -->
-          <div class="p-3 my-2 bg-white rounded shadow-sm cursor-pointer lg:p-5 " v-for="(item, index) in activeProject.palettes" :key="index">
+          <div class="p-1 my-2 bg-white rounded shadow-sm cursor-pointer lg:p-5 " v-for="(item, index) in activeProject.palettes" :key="index">
             <div class="flex flex-row items-center justify-between">
-              <h1 class="mb-2 text-base font-medium font-heading ">{{ item.name }}</h1>
+              <h1 class="m-3 text-base font-medium font-heading ">{{ item.name }}</h1>
 
               <!-- Palette Menu -->
-              <div class="flex flex-row justify-center mt-3 lg:mt-0">
+              <div class="flex flex-row items-center justify-center lg:mt-0">
+                <p class="m-3 text-sm cursor-pointer text-gray-light " @click="addColor(item)">Add Color</p>
                 <p class="m-3 text-sm cursor-pointer text-gray-light " @click="editPalette(item._id)">Edit</p>
                 <p class="m-3 text-sm cursor-pointer text-gray-light" @click="deletePalette(item._id)">Delete</p>
               </div>
@@ -37,13 +38,26 @@
 
             <!-- Colors -->
             <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-8 2xl:grid-cols-12">
-              <div
-                class="flex flex-row items-center justify-between p-2 my-2 cursor-pointer lg:flex-col lg:p-5 lg:w-auto "
-                v-for="(item, colorIndex) in item.colors"
-                :key="colorIndex"
-              >
-                <input v-model="activeProject.palettes[index].colors[colorIndex]" class="w-20 h-20 ml-3" type="color" />
-                <h1 class="m-3 mb-2 text-sm font-medium text-center font-heading ">{{ item }}</h1>
+              <div class="flex flex-row items-center justify-between p-2 lg:flex-col lg:w-auto " v-for="(itemColor, colorIndex) in item.colors" :key="colorIndex">
+                <input v-model="activeProject.palettes[index].colors[colorIndex]" @change="updateColors(item)" class="w-20 h-20" type="color" />
+                <h1 class="m-3 mb-2 text-sm font-medium text-center font-heading text-gray">{{ itemColor }}</h1>
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" class="text-gray hover:text-gray-light" @click="deleteColor(item, itemColor)">
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M6.75 7.75L7.59115 17.4233C7.68102 18.4568 8.54622 19.25 9.58363 19.25H14.4164C15.4538 19.25 16.319 18.4568 16.4088 17.4233L17.25 7.75"
+                  ></path>
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M9.75 7.5V6.75C9.75 5.64543 10.6454 4.75 11.75 4.75H12.25C13.3546 4.75 14.25 5.64543 14.25 6.75V7.5"
+                  ></path>
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 7.75H19"></path>
+                </svg>
               </div>
             </div>
           </div>
@@ -120,6 +134,37 @@
           .catch((err) => {
             console.log(err);
           });
+      },
+
+      addColor(palette) {
+        if (!palette.colors) {
+          palette.colors = [];
+        }
+
+        palette.colors.push('#FFFFFF');
+
+        this.axios
+          .patch('/api/projects/' + this.activeProject._id + '/palettes/' + palette._id, { name: palette.name, colors: palette.colors })
+          .then(() => {
+            this.getProjects();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      },
+
+      updateColors(palette) {
+        this.axios.patch('/api/projects/' + this.activeProject._id + '/palettes/' + palette._id, { name: palette.name, colors: palette.colors }).catch((err) => {
+          console.log(err);
+        });
+      },
+
+      deleteColor(palette, color) {
+        palette.colors = palette.colors.filter((x) => String(x) !== String(color));
+
+        this.axios.patch('/api/projects/' + this.activeProject._id + '/palettes/' + palette._id, { name: palette.name, colors: palette.colors }).catch((err) => {
+          console.log(err);
+        });
       },
     },
     mounted() {

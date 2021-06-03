@@ -34,11 +34,7 @@ async function routes(router) {
       const { projectId } = req.params;
       const { name } = req.body;
 
-      console.log(projectId);
-
       const palettes = await ProjectService.createPalette(projectId, name);
-
-      console.log(palettes);
 
       return res.send(palettes);
     }
