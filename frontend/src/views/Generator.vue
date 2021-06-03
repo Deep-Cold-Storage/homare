@@ -4,11 +4,7 @@
 
     <div class="flex flex-col items-center justify-between flex-grow w-full h-full">
       <div class="absolute flex flex-row justify-end w-full px-12">
-        <div class="h-aut">
-          <button class="px-8 py-3 my-6 text-sm text-white rounded-lg shadow-md lg:max-w-max bg-primary focus:outline-none" @click="getColors()"> Generate</button>
-
-          <button class="px-8 py-3 mx-3 my-6 text-sm text-white rounded-lg shadow-md lg:max-w-max bg-primary focus:outline-none" @click="saveColors()"> Save</button>
-        </div>
+        <button class="px-8 py-3 my-6 text-sm text-white rounded shadow-md lg:max-w-max bg-primary focus:outline-none" @click="getColors()"> Generate Palette</button>
       </div>
 
       <div class="flex flex-col flex-grow w-full min-h-full lg:h-48 lg:flex-row">
@@ -65,10 +61,6 @@
           .catch((err) => {
             console.log(err);
           });
-      },
-
-      saveColors() {
-        return;
       },
     },
     mounted() {

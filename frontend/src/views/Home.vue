@@ -9,15 +9,15 @@
           <p class="mb-6 text-gray-light ">Create and manage color palettes between projects.</p>
 
           <div class="flex flex-col lg:flex-row">
-            <button class="px-8 py-3 my-6 text-sm font-medium text-white rounded-xl lg:max-w-max bg-primary focus:outline-none" @click="$router.push('/generator')"
+            <button class="px-8 py-3 my-6 text-sm font-medium text-white rounded lg:max-w-max bg-primary focus:outline-none" @click="$router.push('/generator')"
               >Start Generator</button
             >
-            <button class="px-8 py-3 my-6 text-sm font-medium text-primary lg:ml-3 rounded-xl lg:max-w-max focus:outline-none" @click="$router.push('/auth')">Or, Sign In</button>
+            <button class="px-8 py-3 my-6 text-sm font-medium text-primary lg:ml-3 lg:max-w-max focus:outline-none" @click="$router.push('/auth')">Or, Sign In</button>
           </div>
         </div>
 
         <div class="w-full lg:w-5/6 lg:max-w-2xl">
-          <img class="object-cover object-center rounded-lg " alt="hero" src="../assets/hero.png" />
+          <img class="object-cover object-center rounded-xl " alt="hero" src="../assets/hero.png" />
         </div>
       </div>
     </div>
