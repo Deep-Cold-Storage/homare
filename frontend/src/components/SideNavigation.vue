@@ -1,5 +1,5 @@
 <template>
-  <section class="hidden w-full max-w-xs p-5 lg:block ">
+  <section class="w-full p-5 lg:block ">
     <!-- Owned Projects -->
     <div class="flex flex-row items-center justify-between">
       <p class="text-xs text-gray-light">Owned Projects</p>
