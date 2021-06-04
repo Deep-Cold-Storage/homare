@@ -14,10 +14,10 @@
           </div>
 
           <!-- Project Menu -->
-          <div class="flex flex-row justify-center mt-3 lg:mt-0">
+          <div v-if="isProjectOwner" class="flex flex-row justify-center mt-3 lg:mt-0">
             <p class="m-3 text-sm cursor-pointer text-gray-light " @click="createPallete()">Create Pallete </p>
             <p class="m-3 text-sm cursor-pointer text-gray-light " @click="editProject()">Edit </p>
-            <p class="m-3 text-sm cursor-pointer text-gray-light">Share</p>
+            <p class="m-3 text-sm cursor-pointer text-gray-light" @click="editMembers()">Share</p>
             <p class="m-3 text-sm cursor-pointer text-gray-light" @click="deleteProject()">Delete</p>
           </div>
         </div>
@@ -29,7 +29,7 @@
               <h1 class="m-3 text-base font-medium font-heading ">{{ item.name }}</h1>
 
               <!-- Palette Menu -->
-              <div class="flex flex-row items-center justify-center lg:mt-0">
+              <div v-if="isProjectOwner" class="flex flex-row items-center justify-center lg:mt-0">
                 <p class="m-3 text-sm cursor-pointer text-gray-light " @click="addColor(item)">Add Color</p>
                 <p class="m-3 text-sm cursor-pointer text-gray-light " @click="editPalette(item._id)">Edit</p>
                 <p class="m-3 text-sm cursor-pointer text-gray-light" @click="deletePalette(item._id)">Delete</p>
@@ -39,9 +39,9 @@
             <!-- Colors -->
             <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-8 2xl:grid-cols-12">
               <div class="flex flex-row items-center justify-between p-2 lg:flex-col lg:w-auto " v-for="(itemColor, colorIndex) in item.colors" :key="colorIndex">
-                <input v-model="activeProject.palettes[index].colors[colorIndex]" @change="updateColors(item)" class="w-20 h-20" type="color" />
+                <input v-model="activeProject.palettes[index].colors[colorIndex]" @change="updateColors(item)" class="w-20 h-20" type="color" :disabled="!isProjectOwner" />
                 <h1 class="m-3 mb-2 text-sm font-medium text-center font-heading text-gray">{{ itemColor }}</h1>
-                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" class="text-gray hover:text-gray-light" @click="deleteColor(item, itemColor)">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" class="text-gray hover:text-gray-light" v-if="isProjectOwner" @click="deleteColor(item, itemColor)">
                   <path
                     stroke="currentColor"
                     stroke-linecap="round"
@@ -104,6 +104,7 @@
         this.axios
           .delete('/api/projects/' + this.activeProject._id)
           .then(() => {
+            this.activeProject = null;
             this.getProjects();
           })
           .catch((err) => {
@@ -125,6 +126,10 @@
 
       editPalette(paletteId) {
         this.$router.push('/projects/' + this.activeProject._id + '/palletes/' + paletteId);
+      },
+
+      editMembers() {
+        this.$router.push('/projects/' + this.activeProject._id + '/members');
       },
 
       deletePalette(palleteId) {
@@ -167,6 +172,12 @@
         this.axios.patch('/api/projects/' + this.activeProject._id + '/palettes/' + palette._id, { name: palette.name, colors: palette.colors }).catch((err) => {
           console.log(err);
         });
+      },
+    },
+
+    computed: {
+      isProjectOwner: function() {
+        return this.projects.owned.some((project) => project._id === this.activeProject._id);
       },
     },
     mounted() {

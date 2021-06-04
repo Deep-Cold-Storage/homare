@@ -39,30 +39,33 @@ class ProjectService {
   }
 
   async getMembers(projectId) {
-    const project = await projects.find({ _id: projectId });
+    const project = await projects.findOne({ _id: projectId }).populate('members.user', '-_id -__v -auth');
 
     return project.members;
   }
 
   async createMember(projectId, email) {
     let user = await users.findOne({ email: email });
-    const project = projects.find({ _id: projectId });
+    const project = await projects.findOne({ _id: projectId });
 
     if (!user) {
       user = new users({ email: email });
-
       user.save();
     }
 
-    project.members.push(user._id);
+    project.members.push({ _userId: user._id });
+
+    project.save();
 
     return project.members;
   }
 
   async removeMember(projectId, memberId) {
-    const project = awaitprojects.find({ _id: projectId });
+    const project = await projects.findOne({ _id: projectId });
 
-    project.members = project.members.filter((x) => String(x) !== String(memberId));
+    project.members = project.members.filter((x) => String(x._id) !== String(memberId));
+
+    project.save();
 
     return project.members;
   }

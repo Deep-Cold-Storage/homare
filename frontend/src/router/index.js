@@ -14,6 +14,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "auth" */ '../views/Auth.vue'),
   },
   {
+    path: '/generator',
+    name: 'Generator',
+    component: () => import(/* webpackChunkName: "generator" */ '../views/Generator.vue'),
+  },
+  {
     path: '/projects',
     name: 'Projects',
     component: () => import(/* webpackChunkName: "projects" */ '../views/Projects.vue'),
@@ -29,7 +34,6 @@ const routes = [
     props: { editMode: true },
     component: () => import(/* webpackChunkName: "projects" */ '../views/CreateProject.vue'),
   },
-
   {
     path: '/projects/:projectID/palletes/create',
     name: 'CreatePallete',
@@ -42,9 +46,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "projects" */ '../views/CreatePallete.vue'),
   },
   {
-    path: '/generator',
-    name: 'Generator',
-    component: () => import(/* webpackChunkName: "generator" */ '../views/Generator.vue'),
+    path: '/projects/:projectID/members',
+    name: 'Members',
+    component: () => import(/* webpackChunkName: "members" */ '../views/Members.vue'),
   },
 ];
 

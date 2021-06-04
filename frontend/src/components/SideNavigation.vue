@@ -35,7 +35,7 @@
       <p class="text-xs text-gray-light">Shared Projects</p>
       <div class="w-full h-px my-3 rounded-full bg-gray-lighter"></div>
 
-      <div class="p-3 my-3 bg-white rounded shadow-sm cursor-pointer lg:p-5 lg:w-auto" v-for="(item, index) in projects.shared" :key="index">
+      <div class="p-3 my-3 bg-white rounded shadow-sm cursor-pointer lg:p-5 lg:w-auto" v-for="(item, index) in projects.shared" :key="index" @click="$emit('setActive', item)">
         <h1 class="mb-2 text-sm font-medium truncate font-heading">{{ item.name }}</h1>
         <p class="text-xs truncate text-gray-light">{{ item.description }}</p>
       </div>

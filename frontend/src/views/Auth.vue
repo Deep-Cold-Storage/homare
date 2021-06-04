@@ -13,14 +13,14 @@
             v-model="userEmail"
             v-on:keyup.enter="requestsMagicEmail()"
             placeholder="... @gmail.com"
-            class="block w-full px-3 py-3 text-sm border-transparent rounded-xl bg-background text-gray placeholder-gray-light lg:w-80 focus:outline-none "
+            class="block w-full px-3 py-3 text-sm border-transparent rounded bg-background text-gray placeholder-gray-light lg:w-80 focus:outline-none "
             autofocus
             autocomplete
           />
         </div>
 
         <button
-          class="px-8 py-3 mx-5 my-5 text-sm font-medium text-white rounded-xl lg:my-0 bg-primary disabled:bg-gray disabled:text-gray-light focus:outline-none"
+          class="px-8 py-3 mx-5 my-5 text-sm font-medium text-white rounded lg:my-0 bg-primary disabled:bg-gray disabled:text-gray-light focus:outline-none"
           @click="requestsMagicEmail()"
           :disabled="!userEmail.length"
           >Continue</button
@@ -54,6 +54,8 @@
           })
           .then(() => {
             this.message = 'Done! Check Your Inbox!';
+
+            this.userEmail = '';
           });
       },
       login() {

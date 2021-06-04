@@ -5,8 +5,15 @@ const schema = mongoose.Schema({
 
   name: String,
   description: String,
-  members: [mongoose.Types.ObjectId],
+  members: [{ _userId: mongoose.Types.ObjectId }],
   palettes: [{ name: String, colors: [String] }],
+});
+
+schema.virtual('members.user', {
+  ref: 'user',
+  localField: 'members._userId',
+  foreignField: '_id',
+  justOne: true,
 });
 
 module.exports = mongoose.model('project', schema);
