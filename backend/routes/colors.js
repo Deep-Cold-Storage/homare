@@ -5,7 +5,7 @@ async function routes(router) {
     '/',
     {
       schema: {
-        summary: 'Generate color pallete.',
+        summary: 'Get color palette from external service.',
         tags: ['Colors'],
       },
     },

@@ -25,7 +25,7 @@ async function routes(router) {
     '/:projectId/palettes',
     {
       schema: {
-        summary: 'Add project palettes',
+        summary: 'Create a new palette for the project. ',
         tags: ['Projects - Palettes'],
         security: [{ BearerAuth: [] }],
       },
@@ -44,7 +44,7 @@ async function routes(router) {
     '/:projectId/palettes/:paletteId',
     {
       schema: {
-        summary: 'Update project palette',
+        summary: 'Update palette name and description.',
         tags: ['Projects - Palettes'],
         security: [{ BearerAuth: [] }],
       },
@@ -63,7 +63,7 @@ async function routes(router) {
     '/:projectId/palettes/:paletteId',
     {
       schema: {
-        summary: 'Remove projects palette',
+        summary: 'Remove palette from the project.',
         tags: ['Projects - Palettes'],
         security: [{ BearerAuth: [] }],
       },

@@ -15,6 +15,10 @@ app.register(require('fastify-swagger'), {
     tags: [
       { name: 'Users', description: '👱 User management endpoints.' },
       { name: 'Auth', description: '🔒 User authentication endpoints.' },
+      { name: 'Colors', description: '🌈 Colors management endpoints.' },
+      { name: 'Projects', description: '📚 Project management endpoints.' },
+      { name: 'Projects - Members', description: "📕 Project's members management endpoints." },
+      { name: 'Projects - Palettes', description: "📗 Project's palettes management endpoints." },
     ],
     servers: [
       { url: 'http://127.0.0.1:3000', description: 'Development' },

@@ -40,7 +40,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-8 2xl:grid-cols-12">
               <div class="flex flex-row items-center justify-between p-2 lg:flex-col lg:w-auto " v-for="(itemColor, colorIndex) in item.colors" :key="colorIndex">
                 <input v-model="activeProject.palettes[index].colors[colorIndex]" @change="updateColors(item)" class="w-20 h-20" type="color" :disabled="!isProjectOwner" />
-                <h1 class="m-3 mb-2 text-sm font-medium text-center font-heading text-gray">{{ itemColor }}</h1>
+                <h1 class="m-3 mb-2 text-sm font-medium text-center uppercase font-heading text-gray">{{ itemColor }}</h1>
                 <svg width="20" height="20" fill="none" viewBox="0 0 24 24" class="text-gray hover:text-gray-light" v-if="isProjectOwner" @click="deleteColor(item, itemColor)">
                   <path
                     stroke="currentColor"

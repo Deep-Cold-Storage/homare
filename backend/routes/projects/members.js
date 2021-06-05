@@ -7,7 +7,7 @@ async function routes(router) {
     '/:projectId/members',
     {
       schema: {
-        summary: 'Get project members',
+        summary: "Get project's members.",
         tags: ['Projects - Members'],
         security: [{ BearerAuth: [] }],
       },
@@ -25,7 +25,7 @@ async function routes(router) {
     '/:projectId/members',
     {
       schema: {
-        summary: 'Invite projects member.',
+        summary: 'Add a member to the project.',
         tags: ['Projects - Members'],
         security: [{ BearerAuth: [] }],
       },
@@ -44,7 +44,7 @@ async function routes(router) {
     '/:projectId/members/:memberId',
     {
       schema: {
-        summary: 'Remove projects member.',
+        summary: 'Remove member from the project',
         tags: ['Projects - Members'],
         security: [{ BearerAuth: [] }],
       },

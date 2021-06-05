@@ -7,7 +7,7 @@ async function routes(router) {
     '/:projectId',
     {
       schema: {
-        summary: 'Update project.',
+        summary: 'Update project name and description.',
         tags: ['Projects'],
         security: [{ BearerAuth: [] }],
       },
@@ -26,7 +26,7 @@ async function routes(router) {
     '/:projectId',
     {
       schema: {
-        summary: 'Remove project.',
+        summary: "Delete user's project.",
         tags: ['Projects'],
         security: [{ BearerAuth: [] }],
       },

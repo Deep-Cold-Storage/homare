@@ -23,7 +23,7 @@ async function routes(router) {
     '/:projectId',
     {
       schema: {
-        summary: 'Get by ID',
+        summary: "Get user's project by ID",
         tags: ['Projects'],
         security: [{ BearerAuth: [] }],
       },
