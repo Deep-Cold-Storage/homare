@@ -9,14 +9,14 @@ const routes = [
     component: Home,
   },
   {
-    path: '/auth/:magicToken?',
-    name: 'Auth',
-    component: () => import(/* webpackChunkName: "auth" */ '../views/Auth.vue'),
-  },
-  {
     path: '/generator',
     name: 'Generator',
     component: () => import(/* webpackChunkName: "generator" */ '../views/Generator.vue'),
+  },
+  {
+    path: '/auth/:magicToken?',
+    name: 'Auth',
+    component: () => import(/* webpackChunkName: "auth" */ '../views/Auth.vue'),
   },
   {
     path: '/projects',

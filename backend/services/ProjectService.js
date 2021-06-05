@@ -2,14 +2,14 @@ const projects = require('../models/projects');
 const users = require('../models/users');
 
 class ProjectService {
-  async getUserProjects(userId) {
-    let project = { owned: await projects.find({ _userId: userId }), shared: await projects.find({ 'members._userId': userId }) };
+  async getUserProject(userId, projectId) {
+    let project = await projects.findOne({ _userId: userId, _id: projectId });
 
     return project;
   }
 
-  async getUserProject(userId, projectId) {
-    let project = await projects.findOne({ _userId: userId, _id: projectId });
+  async getUserProjects(userId) {
+    let project = { owned: await projects.find({ _userId: userId }), shared: await projects.find({ 'members._userId': userId }) };
 
     return project;
   }
