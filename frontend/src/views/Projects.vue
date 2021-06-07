@@ -36,7 +36,7 @@
               </div>
             </div>
 
-            <!-- Colors -->
+            <!-- Colors Grid -->
             <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-8 2xl:grid-cols-12">
               <div class="flex flex-row items-center justify-between p-2 lg:flex-col lg:w-auto " v-for="(itemColor, colorIndex) in item.colors" :key="colorIndex">
                 <input v-model="activeProject.palettes[index].colors[colorIndex]" @change="updateColors(item)" class="w-20 h-20" type="color" :disabled="!isProjectOwner" />
